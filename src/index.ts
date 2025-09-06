@@ -9,7 +9,7 @@ import * as io from "@actions/io";
 import * as os from "os";
 import * as path from "path";
 import * as ecr from "./ecr";
-import { execute, getDockerConfigJson } from "./utils";
+import { createDir, execute, getDockerConfigJson } from "./utils";
 import * as stateHelper from "./state-helper";
 import { Inputs } from "./generated/inputs-outputs";
 
@@ -92,8 +92,9 @@ async function run(): Promise<void> {
 
     dockerConfig.auths[registry] = generatedAuth;
 
-    await fs.mkdir(dockerConfigDir, { recursive: true })
-        .then(() => fs.writeFile(dockerConfigPath, JSON.stringify(dockerConfig, undefined, 8), "utf-8"));
+    await createDir(dockerConfigDir)
+        .then(() => fs.writeFile(dockerConfigPath, JSON.stringify(dockerConfig, undefined, 8), "utf-8"))
+        .catch((err) => core.error("Error creating directory:", err));
 }
 
 async function registryLogout(): Promise<void> {
