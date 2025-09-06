@@ -1,5 +1,9 @@
 # podman-login Changelog
 
+## v1.7.1
+- Update dependencies https://github.com/redhat-actions/podman-login/issues/46
+- Don't fail on missing ~/.docker dir https://github.com/redhat-actions/podman-login/pull/43
+
 ## v1.7
 - Update action to run on Node20.https://github.blog/changelog/2023-09-22-github-actions-transitioning-from-node-16-to-node-20/
 
